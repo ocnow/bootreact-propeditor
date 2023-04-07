@@ -7,10 +7,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "sars_properties")
+@SequenceGenerator(name = "sars_prop_seq",sequenceName = "SARS_PROP_SEQ",allocationSize = 1)
 public class SarsProperties {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sars_prop_seq")
     @Column(name = "PROP_ID")
     private Integer propertyId;
 
