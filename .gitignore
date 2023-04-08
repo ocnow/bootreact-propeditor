@@ -1,35 +1,14 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-**mvn**
-**application.properties
+#front-end ignore
+frontend/node_modules/*
+frontend/build/*
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+#back-end changes
+backend/target/*
+backend/.mvn/*
+backend/box.iml
+backend/mvnw*
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+#os & ides
+**DS_Store**
+backend/*idea*
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 public class PropController {
 
     @Autowired
@@ -25,6 +26,7 @@ public class PropController {
 
     @PostMapping("/api/SaveProp")
     public SarsProperties saveProp(@RequestBody SarsProperties properties){
+        System.out.println("updating the record.....");
         return prophandlingService.saveOrUpdateProp(properties);
     }
 

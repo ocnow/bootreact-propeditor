@@ -1,0 +1,34 @@
+.fill-window {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.mainComp{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.appWindow{
+    display: flex;
+    justify-content: center;
+}
+
+
+.table-row{
+    display: flex;
+    padding: 10px;
+}
+
+.table-item{
+    margin: 5px;
+}
+
+.submitButton{
+    width: 100%;
+}
