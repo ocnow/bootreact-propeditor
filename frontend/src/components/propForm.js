@@ -6,6 +6,7 @@ const PropForm = function(){
     
     const [allProps,setCustomProps] = useState([]);
     const currentDBProps = useRef([]);
+    
 
     useEffect(() => {
         fetch('/api/GetAllProps')
@@ -30,8 +31,7 @@ const PropForm = function(){
             }
             return item;
         });
-        setCustomProps(newItems);
-        
+        setCustomProps(newItems);   
     }
 
     const handleSubmit = function(){
@@ -60,12 +60,27 @@ const PropForm = function(){
         return true;
     }
 
+    const handleDelete = function(index){
+        fetch(`/api/DeleteProp/${allProps[index].propertyId}`,{
+            method:'DELETE'
+          }).then((response) => {
+            if(response.ok){
+                const newState = [...allProps.slice(0,index),...allProps.slice(index+1)]
+                setCustomProps(newState);
+            }
+          })
+          .catch((error)=>{
+            alert(error.message);
+          });
+    }
+
     return <div>
                 <div className="table">{allProps.map((item,index)=>{
                 return( 
                     <div className='table-row' key={item["propertyId"]}>
                         <input className='table-item' type='text' value={item["propName"]} onChange={(event)=>handleChange(event,item["propertyId"],"name")}/>
-                        <input className='table-item' type='text' value={item["propValue"]} onChange={(event,id)=>handleChange(event,item["propertyId"],"value")}/>
+                        <input className='table-item' type='text' value={item["propValue"]} onChange={(event)=>handleChange(event,item["propertyId"],"value")}/>
+                        <button type="button" className="table-item btn btn-danger" onClick={()=>handleDelete(index)}>X</button>
                     </div>
                 )
                  })}

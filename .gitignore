@@ -12,3 +12,5 @@ backend/mvnw*
 **DS_Store**
 backend/*idea*
 
+#common
+**ignoref/*
