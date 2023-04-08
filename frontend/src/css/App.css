@@ -17,12 +17,21 @@
 .appWindow{
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 .table-row{
     display: flex;
     padding: 10px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.table-row h2{
+    margin-bottom: 0;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .table-item{

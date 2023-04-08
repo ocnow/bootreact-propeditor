@@ -1,12 +1,10 @@
-//import onEffect from react
 import { useEffect,useRef,useState } from 'react';
 
 const PropForm = function(){
 
-    
     const [allProps,setCustomProps] = useState([]);
     const currentDBProps = useRef([]);
-    
+    const newAddProps = useRef([]);   
 
     useEffect(() => {
         fetch('/api/GetAllProps')
@@ -17,7 +15,6 @@ const PropForm = function(){
         });
     }, []);
     
-
     const handleChange = function(event,id,whatChanged){
         const newItems = allProps.map((item)=>{
             if(item["propertyId"] === id){
@@ -74,8 +71,34 @@ const PropForm = function(){
           });
     }
 
-    return <div>
-                <div className="table">{allProps.map((item,index)=>{
+    const handleAdd = function(){
+        let val1 = newAddProps.current[0].value;
+        let val2 = newAddProps.current[1].value;
+
+        if(val1 !== '' && val2 !== ''){
+            fetch(`/api/SaveProp/`,{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({"propName": val1,"propValue": val2})
+              }).then(response => response.json())
+                .then(data => {
+                    setCustomProps([...allProps,data]);
+                    newAddProps.current[0].value = '';
+                    newAddProps.current[1].value = '';
+                })
+              .catch((error)=>{
+                alert(error.message);
+              });
+        }
+    }
+
+    return <div className="table">
+                <div className='table-row'>
+                    <h2>Name</h2>
+                    <h2>Value</h2>
+                    <h2></h2>
+                </div>
+                {allProps.map((item,index)=>{
                 return( 
                     <div className='table-row' key={item["propertyId"]}>
                         <input className='table-item' type='text' value={item["propName"]} onChange={(event)=>handleChange(event,item["propertyId"],"name")}/>
@@ -84,10 +107,14 @@ const PropForm = function(){
                     </div>
                 )
                  })}
-                 <button className='table-item submitButton btn btn-primary'  onClick={handleSubmit}>Submit</button>
+                 <div className='table-row'>
+                    <input className='table-item' type='text' ref={el => newAddProps.current[0] = el} placeholder='Property Name'/>
+                    <input className='table-item' type='text' ref={el => newAddProps.current[1] = el} placeholder='Property Value'/>
+                    <button type="button" className="table-item btn btn-success" onClick={handleAdd}>+</button>
                  </div>
-                
-        </div>
+
+                 <button className='table-item submitButton btn btn-primary'  onClick={handleSubmit}>Submit</button>
+                 </div> 
 }
 
 export default PropForm;
